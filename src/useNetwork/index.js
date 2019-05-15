@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
-import { addEventListener, removeEventListener } from '../utils';
+import {
+  isFunction,
+  addEventListener,
+  removeEventListener,
+} from '../utils';
 
 const eventList = ['online', 'offline'];
 const useNetwork = onChange => {
   const [status, setStatus] = useState(navigator.onLine);
   const handleChange = () => {
-    if (typeof onChange === 'function') {
+    if (isFunction(onChange)) {
       onChange(navigator.onLine);
     }
     setStatus(navigator.onLine);
