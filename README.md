@@ -62,3 +62,4 @@ ReactDOM.render(<App/>, document.querySelector('#root'));
 ## Reference about other hooks
 
 - https://github.com/sandiiarov/use-events
+- https://reactjs.org/docs/hooks-rules.html
