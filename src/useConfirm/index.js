@@ -1,12 +1,12 @@
+import {
+  isFunction,
+} from '../utils';
+
 const useConfirm = (message = '', onConfirm, onCancel) => {
-  if ( (!onConfirm || typeof onConfirm !== 'function')
-  || (onCancel && typeof onCancel !== 'function') ){
+  if ( !isFunction(onConfirm) || (onCancel && typeof onCancel !== 'function') ){
     return;
   }
-
-  const confirmAction = () => {
-   confirm(message) ? onConfirm() : onCancel();
-  };
+  const confirmAction = () => window.confirm(message) ? onConfirm() : onCancel();
 
   return confirmAction;
 };

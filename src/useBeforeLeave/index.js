@@ -1,19 +1,23 @@
 import { useEffect } from 'react';
+import {
+  isFunction,
+  addEventListener,
+  removeEventListener,
+} from '../utils';
 
 const useBeforeLeave = onBefore => {
-  const isFunction = onBefore && typeof onBefore === 'function';
   const handle = event => {
     const { clientY } = event;
     if (clientY <= 0) {
       onBefore();
     }
   };
-  const toggleEvent = method => document[method]('mouseleave', handle);
+  const toggleEvent = f => f(document, 'mouseleave', handle);
 
   useEffect(() => {
-    if (isFunction)  {
-      toggleEvent('addEventListener');
-      return () => toggleEvent('removeEventListener');
+    if (isFunction(onBefore))  {
+      toggleEvent(addEventListener);
+      return () => toggleEvent(removeEventListener);
     }
   });
 };

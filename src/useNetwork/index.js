@@ -15,14 +15,13 @@ const useNetwork = onChange => {
     setStatus(navigator.onLine);
   };
 
-  const addEvent = name => addEventListener(window, name, handleChange);
-  const removeEvent = name => removeEventListener(window, name, handleChange);
+  const toggleEvent = (f, name) => f(window, name, handleChange);
 
   useEffect(() => {
-    eventList.map(name => addEvent(name));
+    eventList.map(name => toggleEvent(addEventListener, name));
 
     return () => {
-      eventList.map(name => removeEvent(name));
+      eventList.map(name => toggleEvent(removeEventListener, name));
     }
   });
 
